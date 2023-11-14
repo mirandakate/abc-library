@@ -10,7 +10,7 @@ export const toast = ({ key = window.crypto.randomUUID(), title, message, varian
     worldtrigger.dispatchTrigger('gb.toaster', { key, title, message, variant, show, duration })
 }
 
-type StateProps = {
+export type StateProps = {
     key?: string;
     title: string;
     message: string;
@@ -100,7 +100,7 @@ const Toaster: React.FunctionComponent<ToasterProps> = ({ }) => {
                                                     <span className="sr-only">Close</span>
                                                     <XIcon className="h-5 w-5" aria-hidden="true" />
                                                 </button>
-                                                <ToasterDuration duration={state.duration!} onHide={handleHide} />
+                                                <ToasterDuration state={state!} onHide={handleHide} />
                                             </div>
                                         </div>
                                     </div>

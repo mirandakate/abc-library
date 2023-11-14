@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
+import { StateProps } from ".";
 
 interface ToasterDurationProps {
-    duration: number;
+    state: StateProps;
     onHide: () => void;
 }
 
-const ToasterDuration: React.FunctionComponent<ToasterDurationProps> = ({duration, onHide}) => {
+const ToasterDuration: React.FunctionComponent<ToasterDurationProps> = ({state, onHide}) => {
 
     useEffect(() => {
-        if(duration) {
-            const cleanup = setTimeout(onHide, duration)
+        if(state.duration) {
+            const cleanup = setTimeout(onHide, state.duration)
             
             return () => clearTimeout(cleanup)
         }
-    }, [duration])
+    }, [state])
 
     return null
 }

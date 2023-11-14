@@ -163,6 +163,7 @@ export default function SearchBook() {
                         toast({
                             key: randKey,
                             title: 'Error',
+                            variant: 'danger',
                             message: response.data?.message
                         })
                         event.removeLoader()

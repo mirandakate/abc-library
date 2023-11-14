@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1699853564944,
+      "tag": "0000_loud_skullbuster",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1699860073548,
+      "tag": "0001_known_proudstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1699901493047,
+      "tag": "0002_free_lilandra",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1699931641507,
+      "tag": "0003_cloudy_lord_tyger",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1699931672809,
+      "tag": "0004_pretty_legion",
+      "breakpoints": true
+    }
+  ]
+}

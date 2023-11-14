@@ -1,0 +1,46 @@
+{
+  "name": "library-book-management",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "introspect": "npx drizzle-kit introspect:sqlite",
+    "migration:generate": "npx drizzle-kit generate:sqlite",
+    "migration:push": "npx drizzle-kit push:sqlite",
+    "studio": "npx drizzle-kit studio --port 4000"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "1.0.6",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tanstack/react-query": "^5.8.2",
+    "better-sqlite3": "^9.1.1",
+    "classnames": "^2.3.2",
+    "drizzle-orm": "^0.28.6",
+    "next": "^14.0.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "sass": "^1.69.5",
+    "shomai": "^1.0.1",
+    "validozer": "^1.0.5",
+    "world-trigger": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.7",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "dotenv": "^16.3.1",
+    "drizzle-kit": "^0.19.13",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5",
+    "vercel": "^32.5.2"
+  }
+}

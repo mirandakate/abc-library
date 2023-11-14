@@ -1,0 +1,1 @@
+ALTER TABLE book ADD `thumbnail` text NOT NULL;

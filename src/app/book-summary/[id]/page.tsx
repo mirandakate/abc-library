@@ -27,7 +27,7 @@ export default function BookSummary() {
 
     const data = query.data
 
-    const borrowMutation = useMutation({ 
+    const borrowMutation = useMutation({
         mutationFn: async (payload: BorrowPayloadType) => {
             const response = await fetch(`${process.env.VERCEL_URL || ''}/api/borrow`, {
                 method: 'POST',
@@ -102,42 +102,42 @@ export default function BookSummary() {
                     book_id: parseInt(id as any),
                     borrower_name: FORM_DATA.borrowerName,
                 },
-                {
-                    onSuccess: (response: any) => {
-                        if(response.data.success === true) {
+                    {
+                        onSuccess: (response: any) => {
+                            if (response.data.success === true) {
+                                toast({
+                                    key: randKey,
+                                    title: 'Success',
+                                    message: response.data?.message
+                                })
+                                event.close()
+                                query.refetch()
+                                worldtrigger.dispatchTrigger('recent.borrowed')
+                            } else {
+                                toast({
+                                    key: randKey,
+                                    title: 'Failed',
+                                    variant: 'danger',
+                                    message: response.data?.message
+                                })
+                                event.removeLoader()
+                                event.setErrors(response.data.errors.map((error: any) => error.message))
+                            }
+                        },
+                        onError: (response: any) => {
                             toast({
                                 key: randKey,
-                                title: 'Success',
-                                message: response.data?.message
-                            })
-                            event.close()
-                            query.refetch()
-                            worldtrigger.dispatchTrigger('recent.borrowed')
-                        } else {
-                            toast({
-                                key: randKey,
-                                title: 'Failed',
-                                variant: 'danger',
+                                title: 'Error',
                                 message: response.data?.message
                             })
                             event.removeLoader()
-                            event.setErrors(response.data.errors.map((error: any) => error.message))
                         }
-                    },
-                    onError: (response: any) => {
-                        toast({
-                            key: randKey,
-                            title: 'Error',
-                            message: response.data?.message
-                        })
-                        event.removeLoader()
-                    }
-                })
+                    })
             },
         })
     }
 
-    const returnMutation = useMutation({ 
+    const returnMutation = useMutation({
         mutationFn: async (payload: ReturnPayloadType) => {
             const response = await fetch(`${process.env.VERCEL_URL || ''}/api/borrow`, {
                 method: 'PATCH',
@@ -146,7 +146,7 @@ export default function BookSummary() {
 
             return await response.json()
         },
-        
+
     })
 
     const handleReturn = () => {
@@ -214,42 +214,42 @@ export default function BookSummary() {
                     id: data?.borrows[0]?.id || 0,
                     returned_book_condition_id: FORM_DATA.returnBookConditionID,
                 },
-                {
-                    onSuccess: (response: any) => {
-                        if(response.data.success === true) {
+                    {
+                        onSuccess: (response: any) => {
+                            if (response.data.success === true) {
+                                toast({
+                                    key: randKey,
+                                    title: 'Success',
+                                    message: response.data?.message
+                                })
+                                event.close()
+                                query.refetch()
+                                worldtrigger.dispatchTrigger('recent.borrowed')
+                            } else {
+                                toast({
+                                    key: randKey,
+                                    title: 'Failed',
+                                    variant: 'danger',
+                                    message: response.data?.message
+                                })
+                                event.removeLoader()
+                                event.setErrors(response.data.errors.map((error: any) => error.message))
+                            }
+                        },
+                        onError: (response: any) => {
                             toast({
                                 key: randKey,
-                                title: 'Success',
-                                message: response.data?.message
-                            })
-                            event.close()
-                            query.refetch()
-                            worldtrigger.dispatchTrigger('recent.borrowed')
-                        } else {
-                            toast({
-                                key: randKey,
-                                title: 'Failed',
-                                variant: 'danger',
+                                title: 'Error',
                                 message: response.data?.message
                             })
                             event.removeLoader()
-                            event.setErrors(response.data.errors.map((error: any) => error.message))
                         }
-                    },
-                    onError: (response: any) => {
-                        toast({
-                            key: randKey,
-                            title: 'Error',
-                            message: response.data?.message
-                        })
-                        event.removeLoader()
-                    }
-                })
+                    })
             },
         })
     }
 
-    const archiveMutation = useMutation({ 
+    const archiveMutation = useMutation({
         mutationFn: async (payload: BookArchiveType) => {
             const response = await fetch(`${process.env.VERCEL_URL || ''}/api/book`, {
                 method: 'PATCH',
@@ -258,7 +258,7 @@ export default function BookSummary() {
 
             return await response.json()
         },
-        
+
     })
 
     const handleArchived: React.MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -267,7 +267,7 @@ export default function BookSummary() {
         confirmDialog({
             key: 'archive-book',
             title: isArchived ? 'Unarchive' : 'Archive',
-            titleIcon: <ExclamationCircleIcon className={isArchived ? "text-green-600" : "text-red-600"}  />,
+            titleIcon: <ExclamationCircleIcon className={isArchived ? "text-green-600" : "text-red-600"} />,
             confirmVariant: isArchived ? 'success' : 'danger',
             confirmLabel: isArchived ? 'unarchive' : 'archive',
             body: (
@@ -279,37 +279,31 @@ export default function BookSummary() {
                 archiveMutation.mutate({
                     id: parseInt(id as any)
                 },
-                {
-                    onSuccess: (response: any) => {
-                        if(response.data.success) {
+                    {
+                        onSuccess: (response: any) => {
+                            if (response.data.success) {
+                                toast({
+                                    title: 'Success',
+                                    message: response.data?.message
+                                })
+                                query.refetch()
+                            } else {
+                                toast({
+                                    title: 'Failed',
+                                    message: response.data?.message
+                                })
+                            }
+                        },
+                        onError: (response: any) => {
                             toast({
-                                title: 'Success',
-                                message: response.data?.message
-                            })
-                            query.refetch()
-                        } else {
-                            toast({
-                                title: 'Failed',
+                                title: 'Error',
                                 message: response.data?.message
                             })
                         }
-                    },
-                    onError: (response: any) => {
-                        toast({
-                            title: 'Error',
-                            message: response.data?.message
-                        })
-                    }
-                })
+                    })
             }
         })
-            
-    }
 
-    if (query.isFetching) {
-        return (
-            <div>Loading...</div>
-        )
     }
 
     if (query.isFetched && !query.data) {
@@ -327,81 +321,113 @@ export default function BookSummary() {
             </div>
             <div className="pl-4 pr-6 pt-4 pb-4  border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
                 <div className="lg:grid lg:grid-rows-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
-                    {/* Product image */}
-                    <div className={classNames("lg:row-end-1 lg:col-span-4", { "opacity-50": data?.is_archived })}>
-                        <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden">
-                            <img src={data?.thumbnail} alt={data?.title} className="w-full h-72 object-scale-down" />
-                        </div>
-                    </div>
 
-                    {/* Product details */}
-                    <div className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-7 w-full">
-                        <div className="flex flex-col-reverse">
-                            <div className={classNames("mt-4", { "opacity-50": data?.is_archived })}>
-                                <h1 className="text-2xl font-extrabold tracking-tight mb-6 text-gray-900 sm:text-lg">{data?.title}</h1>
-                                <p className="text-sm text-gray-600 mb-3">
-                                    Author: {data?.author}
-                                </p>
-                                <p className="text-xs text-gray-500 mb-3">
-                                    Published: {data?.year}
-                                </p>
-                                <p className="text-xs text-gray-500 mb-3">
-                                    Condition: {data?.condition.description}
-                                </p>
-                                <p className="text-xs text-gray-500 mb-8">
-                                    Type:
-                                    <span className={classNames("inline-flex ml-2 items-center px-2 py-0.5  text-xs font-medium", { 'bg-green-100 text-green-800': data?.book_type_id === 1, 'bg-purple-100 text-purple-800': data?.book_type_id === 2 })}>
-                                        {data?.type.description}
-                                    </span>
-                                </p>
+                    {query.isFetching ? (
+                        <>
+                            <div className={classNames("lg:row-end-1 lg:col-span-4", { "opacity-50": data?.is_archived })}>
+                                <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden h-72" />
+                            </div>
+                            <div className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-7 w-full">
+                                <div className="flex flex-col-reverse">
+                                    <div className={classNames("mt-4", { "opacity-50": data?.is_archived })}>
+                                        <h1 className="text-2xl font-extrabold tracking-tight mb-6 text-gray-900 sm:text-lg"> <span className="inline-block w-60 bg-gray-100 h-4" /></h1>
+                                        <p className="text-sm text-gray-600 mb-3">
+                                            Author: <span className="inline-block w-40 bg-gray-100 h-3 ml-2" />
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-3">
+                                            Published: <span className="inline-block w-40 bg-gray-100 h-3 ml-2" />
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-3">
+                                            Condition: <span className="inline-block w-40 bg-gray-100 h-3 ml-2" />
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-8">
+                                            Type:
+                                            <span className="inline-block w-40 bg-gray-100 h-3 ml-2" />
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            {/* Book image */}
+                            <div className={classNames("lg:row-end-1 lg:col-span-4", { "opacity-50": data?.is_archived })}>
+                                <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden">
+                                    <img src={data?.thumbnail} alt={data?.title} className="w-full h-72 object-scale-down" />
+                                </div>
                             </div>
 
-                        </div>
+                            {/* Book details */}
+                            <div className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-7 w-full">
+                                <div className="flex flex-col-reverse">
+                                    <div className={classNames("mt-4", { "opacity-50": data?.is_archived })}>
+                                        <h1 className="text-2xl font-extrabold tracking-tight mb-6 text-gray-900 sm:text-lg">{data?.title}</h1>
+                                        <p className="text-sm text-gray-600 mb-3">
+                                            Author: {data?.author}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-3">
+                                            Published: {data?.year}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-3">
+                                            Condition: {data?.condition.description}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-8">
+                                            Type:
+                                            <span className={classNames("inline-flex ml-2 items-center px-2 py-0.5  text-xs font-medium", { 'bg-green-100 text-green-800': data?.book_type_id === 1, 'bg-purple-100 text-purple-800': data?.book_type_id === 2 })}>
+                                                {data?.type.description}
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                </div>
 
 
-                        {Array.isArray(data?.borrows) && query.data!.borrows.length > 0 ? (
-                            <>
-                                <p className="text-xs text-gray-500 mb-3">
-                                    Borrowed by: {data?.borrows?.[0]?.borrower_name}
-                                </p>
-                                <p className="text-xs text-gray-500 mb-8">
-                                    Date borrowed: {data?.borrows?.[0]?.borrowed_date_time ? new Date(data?.borrows?.[0]?.borrowed_date_time).toLocaleString() : 'N/A'}
-                                </p>
-                                <button
-                                    type="button"
-                                    onClick={handleReturn}
-                                    className="w-full bg-blue-50 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-blue-700 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
-                                >
-                                    Return Book
-                                </button>
-                            </>
-                        ) : data?.is_archived ? (
-                            <button
-                                type="button"
-                                onClick={handleArchived}
-                                className="w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-green-500"
-                            >
-                                Unarchive
-                            </button>
-                        ) : (
-                            <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-                                <button
-                                    type="button"
-                                    onClick={handleBorrow}
-                                    className="w-full bg-blue-50 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-blue-700 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
-                                >
-                                    Borrow
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={handleArchived}
-                                    className="w-full bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-red-500"
-                                >
-                                    Archive
-                                </button>
+                                {Array.isArray(data?.borrows) && query.data!.borrows.length > 0 ? (
+                                    <>
+                                        <p className="text-xs text-gray-500 mb-3">
+                                            Borrowed by: {data?.borrows?.[0]?.borrower_name}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mb-8">
+                                            Date borrowed: {data?.borrows?.[0]?.borrowed_date_time ? new Date(data?.borrows?.[0]?.borrowed_date_time).toLocaleString() : 'N/A'}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            onClick={handleReturn}
+                                            className="w-full bg-blue-50 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-blue-700 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
+                                        >
+                                            Return Book
+                                        </button>
+                                    </>
+                                ) : data?.is_archived ? (
+                                    <button
+                                        type="button"
+                                        onClick={handleArchived}
+                                        className="w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-green-500"
+                                    >
+                                        Unarchive
+                                    </button>
+                                ) : (
+                                    <div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                                        <button
+                                            type="button"
+                                            onClick={handleBorrow}
+                                            className="w-full bg-blue-50 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-blue-700 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500"
+                                        >
+                                            Borrow
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleArchived}
+                                            className="w-full bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-red-500"
+                                        >
+                                            Archive
+                                        </button>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

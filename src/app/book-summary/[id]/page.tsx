@@ -362,10 +362,10 @@ export default function BookSummary() {
                         {Array.isArray(data?.borrows) && query.data!.borrows.length > 0 ? (
                             <>
                                 <p className="text-xs text-gray-500 mb-3">
-                                    Borrowed by: {data.borrows?.[0].borrower_name}
+                                    Borrowed by: {data?.borrows?.[0]?.borrower_name}
                                 </p>
                                 <p className="text-xs text-gray-500 mb-8">
-                                    Date borrowed: {data.borrows?.[0].borrowed_date_time ? new Date(data.borrows?.[0].borrowed_date_time).toLocaleString() : 'N/A'}
+                                    Date borrowed: {data?.borrows?.[0]?.borrowed_date_time ? new Date(data?.borrows?.[0]?.borrowed_date_time).toLocaleString() : 'N/A'}
                                 </p>
                                 <button
                                     type="button"

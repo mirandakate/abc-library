@@ -19,9 +19,15 @@ export async function GET(request: NextRequest) {
                 condition: true,
                 type: true,
                 borrows: {
-                    where(fields, {eq}) {
-                        return eq(fields.borrow_status_id, 1)
+                    with: {
+                        returned_book_condition: true
                     },
+                    orderBy(fields, {desc}) {
+                        return desc(fields.borrowed_date_time)
+                    },
+                    // where(fields, {eq}) {
+                    //     return eq(fields.borrow_status_id, 1)
+                    // },
                 }
             },
             where: (fields, {eq}) => {

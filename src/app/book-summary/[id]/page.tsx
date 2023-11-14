@@ -1,6 +1,7 @@
 'use client'
 import { BookArchiveType } from '@/app/api/book/route'
 import type { BorrowPayloadType, ReturnPayloadType } from '@/app/api/borrow/route'
+import BookHistory from '@/components/BookHistory'
 import FormManager from '@/components/FormManager'
 import { confirmDialog } from '@/components/Modal/Confirm'
 import { slideOverDialog } from '@/components/Modal/SlideOver'
@@ -9,7 +10,6 @@ import type { BookProps } from '@/server/schema'
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
-import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import worldtrigger from 'world-trigger'
 
@@ -128,6 +128,7 @@ export default function BookSummary() {
                             toast({
                                 key: randKey,
                                 title: 'Error',
+                                variant: 'danger',
                                 message: response.data?.message
                             })
                             event.removeLoader()
@@ -240,6 +241,7 @@ export default function BookSummary() {
                             toast({
                                 key: randKey,
                                 title: 'Error',
+                                variant: 'danger',
                                 message: response.data?.message
                             })
                             event.removeLoader()
@@ -383,7 +385,7 @@ export default function BookSummary() {
                                 </div>
 
 
-                                {Array.isArray(data?.borrows) && query.data!.borrows.length > 0 ? (
+                                {Array.isArray(data?.borrows) && query.data!.borrows.length > 0 && query.data!.borrows?.[0]?.borrow_status_id === 1 ? (
                                     <>
                                         <p className="text-xs text-gray-500 mb-3">
                                             Borrowed by: {data?.borrows?.[0]?.borrower_name}
@@ -429,6 +431,14 @@ export default function BookSummary() {
                         </>
                     )}
                 </div>
+                <h1 className='mt-8 mb-5'>Borrow History</h1>
+                {(data?.borrows || []).length > 0 ? (
+                    <BookHistory
+                        histories={data?.borrows || []}
+                    />
+                ) : (
+                    <div className='text-gray-400 text-sm'>No history to display</div>
+                )}
             </div>
         </div>
     )

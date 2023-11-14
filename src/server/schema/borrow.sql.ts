@@ -2,7 +2,7 @@ import { InferSelectModel, relations } from "drizzle-orm";
 import { sqliteTable, int, text,  } from "drizzle-orm/sqlite-core";
 import { BookProps, book } from "./book.sql";
 import { borrowStatus } from "./borrow.status.sql";
-import { bookCondition } from "./book.condition.sql";
+import { BookConditionProps, bookCondition } from "./book.condition.sql";
  
 export const borrow = sqliteTable("borrow", {
     id: int("id").primaryKey(),
@@ -31,4 +31,5 @@ export const meetingAttendanceRelationships = relations(borrow, ({ one, many }) 
 
 export type BorrowProps = InferSelectModel<typeof borrow> & {
     book: BookProps;
+    returned_book_condition: BookConditionProps;
 }

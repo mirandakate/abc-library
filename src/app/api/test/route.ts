@@ -12,8 +12,11 @@ export async function GET(request: NextRequest) {
     
          const db = drizzle(sqliteConnection, { schema })
 
+        const book = db.query.book.findMany()
+
          return Response.json({
-            query
+            query,
+            book
         })
     } catch (error: any) {
         return Response.json({

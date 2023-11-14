@@ -99,7 +99,7 @@ const ModalSlideOver: React.FunctionComponent<ModalSlideOverProps> = ({ }) => {
 
                 return (
                     <Transition.Root key={state.key} show={state.show} as={Fragment}>
-                        <Dialog as="div" className="fixed inset-0 overflow-hidden z-50" onClose={handleHide}>
+                        <Dialog as="div" className="fixed inset-0 overflow-hidden z-40" onClose={handleHide}>
                             <div className="absolute inset-0 overflow-hidden">
                                 <Dialog.Overlay className="absolute inset-0" />
 

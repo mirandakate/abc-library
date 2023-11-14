@@ -15,7 +15,7 @@ export default function Home() {
     const query = useQuery({
         queryKey: ['books'],
         queryFn: async () => {
-            const fetchBook = await fetch(`/api/book/all?q=${search}`)
+            const fetchBook = await fetch(`${process.env.VERCEL_URL || ''}/api/book/all?q=${search}`)
             const book = await fetchBook.json()
             return {
                 items: book.data.items as BookProps[]

@@ -19,7 +19,7 @@ export default function BookSummary() {
     const query = useQuery({
         queryKey: ['book'],
         queryFn: async () => {
-            const response = await fetch(`/api/book?id=${id}`)
+            const response = await fetch(`${process.env.VERCEL_URL || ''}/api/book?id=${id}`)
             const json = await response.json()
             return json.data as BookProps
         }
@@ -29,7 +29,7 @@ export default function BookSummary() {
 
     const borrowMutation = useMutation({ 
         mutationFn: async (payload: BorrowPayloadType) => {
-            const response = await fetch(`/api/borrow`, {
+            const response = await fetch(`${process.env.VERCEL_URL || ''}/api/borrow`, {
                 method: 'POST',
                 body: JSON.stringify(payload)
             })
@@ -139,7 +139,7 @@ export default function BookSummary() {
 
     const returnMutation = useMutation({ 
         mutationFn: async (payload: ReturnPayloadType) => {
-            const response = await fetch(`/api/borrow`, {
+            const response = await fetch(`${process.env.VERCEL_URL || ''}/api/borrow`, {
                 method: 'PATCH',
                 body: JSON.stringify(payload)
             })
@@ -251,7 +251,7 @@ export default function BookSummary() {
 
     const archiveMutation = useMutation({ 
         mutationFn: async (payload: BookArchiveType) => {
-            const response = await fetch(`/api/book`, {
+            const response = await fetch(`${process.env.VERCEL_URL || ''}/api/book`, {
                 method: 'PATCH',
                 body: JSON.stringify(payload)
             })

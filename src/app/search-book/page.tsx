@@ -58,7 +58,7 @@ export default function SearchBook() {
 
     const mutation = useMutation({
         mutationFn: async (payload: AddBookPayloadType) => {
-            const addbook = await fetch(`/api/book`, {
+            const addbook = await fetch(`${process.env.VERCEL_URL || ''}/api/book`, {
                 method: 'POST',
                 body: JSON.stringify(payload)
             })

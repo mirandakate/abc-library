@@ -36,11 +36,11 @@ const BookThumbnail: React.FunctionComponent<BookThumbnailProps> = ({
             </div>
             {children}
             <div className={classNames("mt-4 text-base font-medium", {"opacity-50": isBorrowed})}>
-                <p className={classNames("w-full text-xs text-gray-900 text-ellipsis overflow-hidden whitespace-pre", { 'text-blue-500': isVisited })} title={title}>
+                <p className={classNames("w-full text-xs text-ellipsis overflow-hidden whitespace-pre", { 'text-blue-600': isVisited === true, 'text-gray-900': isVisited === false })} title={title}>
                     <span aria-hidden="true" className="absolute inset-0" />
                     {title}
                 </p>
-                <p className={classNames("text-xs text-gray-400 text-ellipsis overflow-hidden whitespace-pre", { 'text-blue-500': isVisited })} title={`${author} (${year})`}>
+                <p className={classNames("text-xs text-ellipsis overflow-hidden whitespace-pre", { 'text-blue-500': isVisited === true, 'text-gray-400': isVisited === false })} title={`${author} (${year})`}>
                     {author || 'N/A'} ({year || 'N/A'})
                 </p>
                 {/* <p>{type}</p> */}

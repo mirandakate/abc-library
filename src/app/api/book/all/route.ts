@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
         })
     } catch (error: any) {
         return new Response(error.message, {
-            status: 500
+            status: 200
         })
     }
 }

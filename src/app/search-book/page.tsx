@@ -187,7 +187,7 @@ export default function SearchBook() {
                 </div>
             </div>
             <div className="pl-4 pr-6 pt-4 pb-4  border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
-                {(Array.isArray(query.data?.items) && query.data?.items.length > 0) ? (
+                {(query.data?.items || []).length > 0 ? (
                     <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
                         {query.data?.items?.map((item) => {
                             return (

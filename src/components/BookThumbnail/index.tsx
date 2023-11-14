@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import React from "react";
+import classNames from "classnames";
 
 interface BookThumbnailProps {
     title: string;
@@ -20,7 +20,6 @@ const BookThumbnail: React.FunctionComponent<BookThumbnailProps> = ({
     isBorrowed,
     type,
     typeID,
-    condition,
     image,
     year,
     isVisited,
@@ -43,9 +42,7 @@ const BookThumbnail: React.FunctionComponent<BookThumbnailProps> = ({
                 <p className={classNames("text-xs text-ellipsis overflow-hidden whitespace-pre", { 'text-blue-500': isVisited === true, 'text-gray-400': isVisited === false })} title={`${author} (${year})`}>
                     {author || 'N/A'} ({year || 'N/A'})
                 </p>
-                {/* <p>{type}</p> */}
             </div>
-            {/* <p className="mt-1 text-sm text-gray-500">{condition}</p> */}
         </div>
     )
 }

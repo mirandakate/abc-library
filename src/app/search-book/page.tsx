@@ -207,20 +207,6 @@ export default function SearchBook() {
                                         >
                                             Add to My Library
                                         </button>
-                                        {/* <button
-                                            type="button"
-                                            className="w-full bg-green-200 bg-opacity-75 backdrop-filter backdrop-blur mb-2 py-2 px-4 rounded-md text-xs font-medium text-green-700 text-center"
-                                            onClick={handleAddBook(item, false)}
-                                        >
-                                            Add as Free
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="w-full bg-purple-200 bg-opacity-75 backdrop-filter backdrop-blur py-2 px-4 rounded-md text-xs font-medium text-purple-700 text-center"
-                                            onClick={handleAddBook(item, true)}
-                                        >
-                                            Add as Charged
-                                        </button> */}
                                     </div>
                                 </BookThumbnail>
                             )

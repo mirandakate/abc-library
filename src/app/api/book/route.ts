@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
             if(exists.is_archived) {
                 await db.update(book).set({
                     is_archived: !exists.is_archived,
+                    book_type_id,
                     book_condition_id: 2
                 }).where(eq(book.id, exists.id))
 
@@ -86,7 +87,7 @@ export async function POST(request: NextRequest) {
 
             return Response.json({
                 data: {
-                    success: false,
+                    success: true,
                     message: 'Already exist on your library'
                 },
             })
